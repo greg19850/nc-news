@@ -14,14 +14,17 @@ const thumbDownIcon = <FiThumbsDown className="downVote-icon" />;
 function SingleArticle() {
 
   const [singleArticle, setSingleArticle] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
 
   let { article_id } = useParams();
 
   useEffect(() => {
+    setIsLoading(true);
     getSingleArticle(article_id)
       .then((selectedArticle) => {
+        setIsLoading(false);
         setSingleArticle(selectedArticle);
       });
   }, [article_id]);
@@ -33,31 +36,34 @@ function SingleArticle() {
     date = created_at.slice(0, 10);
     time = created_at.slice(11, 16);
   }
+  const loadingMsg = <p className='loading'>Loading Article...</p>;
 
   return (
-    <div className="single-article-container">
-      <div className="single-article">
-        <p>{topic}</p>
-        <h3>{title}</h3>
-        <div className="img-container">
-          <img src={article_img_url} alt="" />
-        </div>
-        <p>By: {author}</p>
-        <p>{date} {time}</p>
-        <p className="article-body">{body}</p>
-        <div className="votes-container">
-          <p>Votes:</p>
-          <p>{votes}</p>
-          <p>{thumbUpIcon}</p>
-          <p>{thumbDownIcon}</p>
-        </div>
-        <div className="comments-container">
-          <p><span>{commentIcon}</span>{comment_count} comments</p>
-          <div>Comment Form Component</div>
-          <div>Comment List Component</div>
+    isLoading ?
+      loadingMsg :
+      <div className="single-article-container">
+        <div className="single-article">
+          <p>{topic}</p>
+          <h3>{title}</h3>
+          <div className="img-container">
+            <img src={article_img_url} alt="" />
+          </div>
+          <p>By: {author}</p>
+          <p>{date} {time}</p>
+          <p className="article-body">{body}</p>
+          <div className="votes-container">
+            <p>Votes:</p>
+            <p>{votes}</p>
+            <p>{thumbUpIcon}</p>
+            <p>{thumbDownIcon}</p>
+          </div>
+          <div className="comments-container">
+            <p><span>{commentIcon}</span>{comment_count} comments</p>
+            <div>Comment Form Component</div>
+            <div>Comment List Component</div>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
 

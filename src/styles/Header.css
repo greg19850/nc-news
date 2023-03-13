@@ -1,0 +1,14 @@
+.header-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 10px;
+	background-color: #000;
+	color: #fff;
+}
+
+@media (max-width: 480px) {
+	span {
+		display: none;
+	}
+}

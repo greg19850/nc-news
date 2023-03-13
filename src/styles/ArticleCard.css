@@ -1,30 +1,39 @@
 .article-card {
+	width: 98%;
 	display: flex;
 	justify-content: space-between;
 	padding: 40px;
-	margin: 20px;
-	border-bottom: 2px solid black;
+	margin: 10px auto;
+	background-color: #fff;
+	border-radius: 15px;
 }
 
 .article-info {
 	display: flex;
-	width: 40%;
+	width: 50%;
 	margin-right: 50px;
 	flex-direction: column;
 	align-items: flex-start;
 }
 
 .article-info p {
-	margin: 10px 0;
+	margin: 5px 0;
+}
+.article-info p:nth-last-of-type(1) {
+	margin-top: auto;
 }
 .article-info .topic {
 	text-transform: uppercase;
 	font-size: 0.8rem;
 }
+.article-info a {
+	text-decoration: none;
+	color: #000;
+}
 
 .article-info h3 {
 	font-size: 2rem;
-	align-self: flex-start;
+	margin-bottom: 10px;
 }
 
 .article-info .text-preview span:nth-of-type(1) {

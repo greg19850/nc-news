@@ -4,15 +4,17 @@
 	padding: 0;
 }
 
-html {
-	background-color: #000;
-}
-
 body {
 	margin: 0 auto;
-	width: 90%;
 	min-height: 100vh;
-	background-color: #fff;
+	background-color: #eee;
+}
+
+.loading {
+	text-align: center;
+	font-size: 1.6rem;
+	line-height: 80vh;
+	font-weight: bold;
 }
 
 @media (max-width: 1000px) {

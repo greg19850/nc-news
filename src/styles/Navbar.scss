@@ -1,0 +1,15 @@
+.nav {
+	list-style: none;
+	display: flex;
+	background-color: #000;
+	color: #fff;
+	padding: 10px;
+
+	li {
+		margin-right: 20px;
+	}
+
+	@media screen and (max-width: 480px) {
+		justify-content: center;
+	}
+}

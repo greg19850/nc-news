@@ -8,6 +8,10 @@ body {
 	margin: 0 auto;
 	min-height: 100vh;
 	background-color: #eee;
+
+	@media screen and (max-width: 1000px) {
+		width: 100%;
+	}
 }
 
 .loading {
@@ -15,10 +19,4 @@ body {
 	font-size: 1.6rem;
 	line-height: 80vh;
 	font-weight: bold;
-}
-
-@media (max-width: 1000px) {
-	body {
-		width: 100%;
-	}
 }

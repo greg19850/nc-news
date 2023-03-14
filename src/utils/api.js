@@ -15,3 +15,11 @@ export const getSingleArticle = (article_id) => {
     return data.article;
   });
 };
+
+export const getAllComments = (article_id) => {
+  console.log(article_id);
+  return articlesApi.get(`/articles/${article_id}/comments`)
+    .then(({ data }) => {
+      return data.comments;
+    });
+};

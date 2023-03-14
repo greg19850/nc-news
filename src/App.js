@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Articles from './components/Articles';
 import SingleArticle from './components/SingleArticle';
 
-import './styles/App.css';
+import './styles/App.scss';
 
 function App() {
   return (

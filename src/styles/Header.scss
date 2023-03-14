@@ -6,9 +6,20 @@
 	background-color: #000;
 	color: #fff;
 
-	span {
-		@media screen and (max-width: 480px) {
-			display: none;
+	.home {
+		font-size: 1.5rem;
+		text-decoration: none;
+		color: #fff;
+	}
+
+	.user {
+		font-size: 1.2rem;
+		span {
+			margin-right: 5px;
+
+			@media screen and (max-width: 480px) {
+				display: none;
+			}
 		}
 	}
 }

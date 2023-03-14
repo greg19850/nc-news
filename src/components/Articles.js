@@ -21,9 +21,11 @@ function Articles() {
     return <ArticleCard key={article.article_id} article={article} />;
   });
 
+  const loadingMsg = <p className='loading'>Loading Articles...</p>;
+
   return (
     <div className="articles">
-      {isLoading ? 'Loading Articles...' : displayArticleCards}
+      {isLoading ? loadingMsg : displayArticleCards}
     </div>
   );
 }

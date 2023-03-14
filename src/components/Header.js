@@ -1,14 +1,19 @@
 import { FaUser, FaHome } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import '../styles/Header.scss';
+
+const userIcon = <FaUser className='user-icon' />;
+const homeIcon = <FaHome className='home-icon' />;
+
 
 function Header() {
   return (
     <div className="header-container">
-      <div className='home'><FaHome className='react-icon' /></div>
+      <Link to={'/'} className='home'><div >{homeIcon}</div></Link>
       <h1 className="header">NC News</h1>
       <div className="user">
-        <span>login</span> <FaUser className='react-icon' />
+        <span>login</span>{userIcon}
       </div>
     </div>
 

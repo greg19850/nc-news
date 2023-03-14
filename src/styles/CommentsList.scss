@@ -1,0 +1,17 @@
+.commentsList-container {
+	h3.comment-header {
+		font-size: 1.5rem;
+		margin: 10px 0;
+	}
+
+	li {
+		list-style: none;
+		margin: 15px 0;
+		padding: 15px;
+		border-bottom: 1px solid #000;
+
+		p.comment-body {
+			font-weight: normal;
+		}
+	}
+}

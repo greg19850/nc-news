@@ -4,14 +4,12 @@
 	background-color: #000;
 	color: #fff;
 	padding: 10px;
-}
 
-.nav li {
-	margin-right: 20px;
-}
+	li {
+		margin-right: 20px;
+	}
 
-@media (max-width: 480px) {
-	.nav {
+	@media screen and (max-width: 480px) {
 		justify-content: center;
 	}
 }

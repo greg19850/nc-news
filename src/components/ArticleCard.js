@@ -1,4 +1,4 @@
-import '../styles/ArticleCard.css';
+import '../styles/ArticleCard.scss';
 
 function ArticleCard({ article }) {
   const { title, topic, author, body, comment_count, article_img_url, } = article;

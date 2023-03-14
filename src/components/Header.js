@@ -1,6 +1,6 @@
 import { FaUser, FaHome } from 'react-icons/fa';
 
-import '../styles/Header.css';
+import '../styles/Header.scss';
 
 function Header() {
   return (

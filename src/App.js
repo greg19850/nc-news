@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Articles from './components/Articles';
 
-import './styles/App.css';
+import './styles/App.scss';
 
 function App() {
   return (

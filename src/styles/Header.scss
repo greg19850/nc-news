@@ -5,10 +5,10 @@
 	padding: 20px 10px;
 	background-color: #000;
 	color: #fff;
-}
 
-@media (max-width: 480px) {
 	span {
-		display: none;
+		@media screen and (max-width: 480px) {
+			display: none;
+		}
 	}
 }

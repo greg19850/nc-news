@@ -3,7 +3,7 @@ import { getArticles } from '../utils/api';
 
 import ArticleCard from './ArticleCard';
 
-import '../styles/Articles.css';
+import '../styles/Articles.scss';
 
 function Articles() {
   const [articles, setArticles] = useState([]);

@@ -46,7 +46,7 @@ function SingleArticle() {
           <p>{topic}</p>
           <h3>{title}</h3>
           <div className="img-container">
-            <img src={article_img_url} alt="" />
+            <img src={article_img_url} alt={title} />
           </div>
           <p>By: {author}</p>
           <p>{date} {time}</p>

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { getSingleArticle } from "../utils/api";
+import CommentsList from "./CommentsList";
+import NewCommentForm from "./NewCommentForm";
+
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
-import CommentsList from "./CommentsList";
-import { getSingleArticle } from "../utils/api";
 
 import '../styles/SingleArticle.scss';
 
@@ -17,6 +19,7 @@ function SingleArticle() {
   const [singleArticle, setSingleArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [commentsList, setCommentsList] = useState([]);
+  const [commentText, setCommentText] = useState('');
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
 
@@ -40,6 +43,8 @@ function SingleArticle() {
   }
   const loadingMsg = <p className='loading'>Loading Article...</p>;
 
+
+  console.log(commentText);
   return (
     isLoading ?
       loadingMsg :
@@ -61,7 +66,7 @@ function SingleArticle() {
           </div>
           <div className="comments-container">
             <p><span>{commentIcon}</span>{comment_count} comments</p>
-            <div>Comment Form Component</div>
+            <NewCommentForm setCommentText={setCommentText} />
             <CommentsList commentsList={commentsList} setCommentsList={setCommentsList} article_id={article_id} />
           </div>
         </div>

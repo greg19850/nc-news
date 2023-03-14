@@ -41,8 +41,25 @@
 			display: flex;
 
 			p {
+				align-self: center;
 				font-size: 1.2rem;
-				margin-right: 5px;
+				margin-right: 10px;
+			}
+
+			button.vote-up,
+			button.vote-down {
+				font-size: 1.2rem;
+				width: 45px;
+				margin: 5px;
+				padding: 2px;
+				background-color: #fff;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			.error {
+				color: red;
 			}
 		}
 

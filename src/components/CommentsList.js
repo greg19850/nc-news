@@ -9,7 +9,7 @@ function CommentsList({ commentsList, setCommentsList, article_id }) {
       .then(uploadedComments => {
         setCommentsList(uploadedComments);
       });
-  }, [article_id]);
+  }, [article_id, commentsList, setCommentsList]);
 
   const allCommentsList = commentsList.map(comment => {
     return (

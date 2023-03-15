@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getSingleArticle } from "../utils/api";
 import CommentsList from "./CommentsList";
 import NewCommentForm from "./NewCommentForm";
+import { getSingleArticle, updateArticleVotes } from "../utils/api";
 
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
+
 
 import '../styles/SingleArticle.scss';
 
@@ -16,10 +17,11 @@ const thumbDownIcon = <FiThumbsDown className="downVote-icon" />;
 
 function SingleArticle() {
 
-  const [singleArticle, setSingleArticle] = useState({});
+  const [singleArticle, setSingleArticle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [commentsList, setCommentsList] = useState([]);
   const [commentText, setCommentText] = useState('');
+  const [errMsg, setErrMsg] = useState(false);
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
 
@@ -43,8 +45,21 @@ function SingleArticle() {
   }
   const loadingMsg = <p className='loading'>Loading Article...</p>;
 
+  const updateVote = (newVote) => {
+    updateArticleVotes(article_id, newVote).then((updatedArticle) => {
+      setErrMsg(false);
+      setSingleArticle((currentArticle) => {
+        return { ...currentArticle, votes: currentArticle.votes + newVote };
+      });
+    }).catch((err) => {
+      setErrMsg(true);
+      // setSingleArticle((currentArticle) => {
+      //   return { ...currentArticle, votes: currentArticle.votes - newVote};
+      // });
 
-  console.log(commentText);
+    });
+  };
+
   return (
     isLoading ?
       loadingMsg :
@@ -59,10 +74,10 @@ function SingleArticle() {
           <p>{date} {time}</p>
           <p className="article-body">{body}</p>
           <div className="votes-container">
-            <p>Votes:</p>
-            <p>{votes}</p>
-            <p>{thumbUpIcon}</p>
-            <p>{thumbDownIcon}</p>
+            <p>Votes: {votes}</p>
+            <button className="vote-up" onClick={() => updateVote(1)}>{thumbUpIcon}</button>
+            <button className="vote-down" onClick={() => updateVote(-1)}>{thumbDownIcon}</button>
+            {errMsg && <p className="error">"Something went wrong, please try again."</p>}
           </div>
           <div className="comments-container">
             <p><span>{commentIcon}</span>{comment_count} comments</p>
@@ -72,6 +87,6 @@ function SingleArticle() {
         </div>
       </div>
   );
-}
+};
 
 export default SingleArticle;

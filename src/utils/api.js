@@ -23,6 +23,14 @@ export const getAllComments = (article_id) => {
     });
 };
 
+export const updateArticleVotes = (article_id, newVote) => {
+  return articlesApi.patch(`/articles/${article_id}`, {
+    inc_votes: newVote
+  }).then(({ data }) => {
+    return data.article;
+  });
+};
+
 export const getUsers = () => {
   return articlesApi.get('/users')
     .then(({ data }) => {

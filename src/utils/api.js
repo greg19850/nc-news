@@ -22,3 +22,10 @@ export const getAllComments = (article_id) => {
       return data.comments;
     });
 };
+
+export const getUsers = () => {
+  return articlesApi.get('/users')
+    .then(({ data }) => {
+      return data.users;
+    });
+};

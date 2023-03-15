@@ -12,9 +12,11 @@ function Header() {
     <div className="header-container">
       <Link to={'/'} className='home'><div >{homeIcon}</div></Link>
       <h1 className="header">NC News</h1>
-      <div className="user">
-        <span>login</span>{userIcon}
-      </div>
+      <Link to={'/users'}>
+        <div className="user">
+          <span>login</span>{userIcon}
+        </div>
+      </Link>
     </div>
 
   );

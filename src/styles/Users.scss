@@ -8,10 +8,53 @@
 	.users-list {
 		list-style: none;
 		display: flex;
+		justify-content: center;
 		flex-wrap: wrap;
 
 		li {
-			width: 33%;
+			width: 32%;
+			margin: 5px;
+			padding: 10px;
+			text-align: center;
+			background-color: #fff;
+
+			.img-container {
+				width: 90%;
+				height: 300px;
+				margin: 0 auto;
+
+				img {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+
+		button {
+			width: 100%;
+			height: 50px;
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	li {
+		width: 48%;
+		flex-grow: 1;
+	}
+}
+@media screen and (max-width: 490px) {
+	.users-page {
+		.users-list {
+			flex-direction: column;
+
+			li {
+				width: 98%;
+			}
 		}
 	}
 }

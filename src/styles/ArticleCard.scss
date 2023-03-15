@@ -80,3 +80,13 @@
 		}
 	}
 }
+
+@media screen and (max-width: 480px) {
+	.article-card {
+		margin: 10px 0;
+
+		.img-container {
+			width: 90%;
+		}
+	}
+}

@@ -7,10 +7,10 @@ function UserCard({ userData }) {
 
   return (
     <li className="user-card">
-      <h2>{userData.username}</h2>
       <div className="img-container">
         <img src={userData.avatar_url} alt={userData.name} />
       </div>
+      <h2>{userData.username}</h2>
       <button>Login</button>
     </li>
   );

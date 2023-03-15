@@ -3,6 +3,7 @@
 
 	h2 {
 		margin: 20px 0;
+		font-size: 2rem;
 	}
 
 	.users-list {
@@ -17,6 +18,7 @@
 			padding: 10px;
 			text-align: center;
 			background-color: #fff;
+			border-radius: 10px;
 
 			.img-container {
 				width: 90%;
@@ -54,6 +56,9 @@
 }
 @media screen and (max-width: 490px) {
 	.users-page {
+		h2 {
+			font-size: 1.4rem;
+		}
 		.users-list {
 			flex-direction: column;
 

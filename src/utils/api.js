@@ -23,7 +23,7 @@ export const getAllComments = (article_id) => {
     });
 };
 
-export const updateArticleVotes = (article_id, newVote = 0) => {
+export const updateArticleVotes = (article_id, newVote) => {
   return articlesApi.patch(`/articles/${article_id}`, {
     inc_votes: newVote
   }).then(({ data }) => {

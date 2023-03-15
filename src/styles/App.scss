@@ -12,11 +12,15 @@ body {
 	@media screen and (max-width: 1000px) {
 		width: 100%;
 	}
-}
 
-.loading {
-	text-align: center;
-	font-size: 1.6rem;
-	line-height: 80vh;
-	font-weight: bold;
+	.loading {
+		text-align: center;
+		font-size: 1.6rem;
+		line-height: 80vh;
+		font-weight: bold;
+	}
+
+	.error {
+		color: red;
+	}
 }

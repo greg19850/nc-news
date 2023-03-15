@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/Users";
 
 function UserCard({ userData }) {
@@ -6,6 +6,17 @@ function UserCard({ userData }) {
   const { loggedUser, setLoggedUser, isLogged, setIsLogged } = useContext(UserContext);
 
   const [errMsg, setErrMsg] = useState(false);
+  const [buttonText, setButtonText] = useState('Login');
+  const [buttonClass, setButtonClass] = useState('');
+
+  useEffect(() => {
+    if (isLogged && loggedUser.username === userData.username) {
+      setButtonText('User Logged In / Log Out');
+      setButtonClass('success');
+    }
+  }, []);
+
+
 
   const handleUserLogin = (e, user) => {
 
@@ -13,19 +24,18 @@ function UserCard({ userData }) {
       setErrMsg(false);
       setIsLogged(true);
       setLoggedUser(user);
-      e.target.textContent = 'User Logged In / Log Out';
-      e.target.classList.add('success');
+      setButtonClass('success');
+      setButtonText('User Logged In / Log Out');
     } else if (isLogged && user.username === loggedUser.username) {
       setErrMsg(false);
       setIsLogged(false);
       setLoggedUser(null);
-      e.target.textContent = 'Login';
-      e.target.classList.remove('success');
+      setButtonClass('');
+      setButtonText('Login');
     } else if (isLogged && user.username !== loggedUser.username) {
       return setErrMsg(true);
     }
   };
-
 
   return (
     <li className="user-card">
@@ -33,7 +43,7 @@ function UserCard({ userData }) {
         <img src={userData.avatar_url} alt={userData.name} />
       </div>
       <h2>{userData.username}</h2>
-      <button onClick={(e) => { handleUserLogin(e, userData); }}>Login</button>
+      <button className={buttonClass} onClick={(e) => { handleUserLogin(e, userData); }}>{buttonText}</button>
       {errMsg && <p className="error">Another User already logged in!!</p>}
     </li>
   );

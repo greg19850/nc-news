@@ -1,26 +1,34 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from "../context/Users";
+
 import '../styles/NewCommentForm.scss';
 
 function NewCommentForm({ setCommentText }) {
 
   const [newComment, setNewComment] = useState('');
-  const [errMsg, setErrMsg] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
 
+
+  const { isLogged } = useContext(UserContext);
 
   const handleTextChange = (e) => {
-    setErrMsg(false);
+    setErrMsg('');
     setNewComment(e.target.value);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    if (!isLogged) {
+      return setErrMsg('Only logged in users can add comments');
+    }
     if (newComment === '') {
-      return setErrMsg(true);
+      return setErrMsg('Comment field cannot be empty');
     }
 
     setCommentText(newComment);
     setNewComment('');
+    setErrMsg('');
   };
 
   return (
@@ -35,7 +43,7 @@ function NewCommentForm({ setCommentText }) {
       ></textarea>
       <div className="submit-container">
         <button type="submit">Add Comment</button>
-        {errMsg && <p className='error'>Comment field cannot be empty</p>}
+        {errMsg && <p className='error'>{errMsg}</p>}
       </div>
     </form>
   );

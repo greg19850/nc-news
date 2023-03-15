@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
 import CommentsList from "./CommentsList";
 import NewCommentForm from "./NewCommentForm";
 import { getSingleArticle, updateArticleVotes } from "../utils/api";
+import { UserContext } from "../context/Users";
 
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
@@ -21,9 +22,11 @@ function SingleArticle() {
   const [isLoading, setIsLoading] = useState(true);
   const [commentsList, setCommentsList] = useState([]);
   const [commentText, setCommentText] = useState('');
-  const [errMsg, setErrMsg] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
+
+  const { isLogged, userVoted, setUserVoted } = useContext(UserContext);
 
   let { article_id } = useParams();
 
@@ -46,13 +49,22 @@ function SingleArticle() {
   const loadingMsg = <p className='loading'>Loading Article...</p>;
 
   const updateVote = (newVote) => {
+    if (!isLogged) {
+      return setErrMsg('Please log in. Voting available only for logged users');
+    }
+
+    if (isLogged && userVoted) {
+      return setErrMsg('This user already voted!');
+    }
+
     updateArticleVotes(article_id, newVote).then((updatedArticle) => {
-      setErrMsg(false);
+      setErrMsg('');
+      setUserVoted(true);
       setSingleArticle((currentArticle) => {
         return { ...currentArticle, votes: currentArticle.votes + newVote };
       });
     }).catch((err) => {
-      setErrMsg(true);
+      setErrMsg('Something went wrong, please try again.');
       // setSingleArticle((currentArticle) => {
       //   return { ...currentArticle, votes: currentArticle.votes - newVote};
       // });
@@ -77,7 +89,8 @@ function SingleArticle() {
             <p>Votes: {votes}</p>
             <button className="vote-up" onClick={() => updateVote(1)}>{thumbUpIcon}</button>
             <button className="vote-down" onClick={() => updateVote(-1)}>{thumbDownIcon}</button>
-            {errMsg && <p className="error">"Something went wrong, please try again."</p>}
+            { }
+            {errMsg && <p className="error">{errMsg}</p>}
           </div>
           <div className="comments-container">
             <p><span>{commentIcon}</span>{comment_count} comments</p>

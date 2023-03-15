@@ -37,3 +37,9 @@ export const getUsers = () => {
       return data.users;
     });
 };
+
+export const postNewComment = (article_id, author, comment) => {
+  return articlesApi.post(`/articles/${article_id}/comments`, { author, body: comment }).then(({ data }) => {
+    console.log(data);
+  });
+};

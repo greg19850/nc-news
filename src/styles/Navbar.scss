@@ -1,19 +1,32 @@
-.nav {
-	list-style: none;
+.navbar {
 	display: flex;
+	justify-content: space-between;
 	padding: 20px;
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 
-	li {
-		margin-right: 20px;
+	.categories {
+		list-style: none;
+		display: flex;
 
-		@media screen and (max-width: 480px) {
-			font-size: 0.8rem;
+		li {
+			margin-right: 20px;
 		}
 	}
 
-	@media screen and (max-width: 480px) {
-		justify-content: center;
+	p.user-info {
+		span {
+			font-weight: bold;
+		}
+
+		@media screen and (max-width: 500px) {
+			margin-top: 5px;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 0.8rem;
+		flex-direction: column;
+		align-items: center;
 	}
 }

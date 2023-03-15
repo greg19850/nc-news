@@ -38,8 +38,11 @@ export const getUsers = () => {
     });
 };
 
-export const postNewComment = (article_id, author, comment) => {
-  return articlesApi.post(`/articles/${article_id}/comments`, { author, body: comment }).then(({ data }) => {
-    console.log(data);
+export const postNewComment = (article_id, username, comment_text) => {
+
+  return articlesApi.post(`/articles/${article_id}/comments`, {
+    author: username, body: comment_text
+  }).then(({ data }) => {
+    return data.comment;
   });
 };

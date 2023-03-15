@@ -5,7 +5,7 @@ import { UserContext } from "../context/Users";
 function Navbar() {
   const { loggedUser } = useContext(UserContext);
 
-  let userInfo = loggedUser ? loggedUser.username : 'No User Logged';
+  let userInfo = loggedUser ? loggedUser.username : 'No User Logged in';
   return (
     <div className="navbar">
       <ul className='categories'>

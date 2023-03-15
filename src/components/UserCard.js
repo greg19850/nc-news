@@ -5,7 +5,7 @@ function UserCard({ userData }) {
 
   const { loggedUser, setLoggedUser, isLogged, setIsLogged } = useContext(UserContext);
 
-  const [errMsg, setErrMsg] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
   const [buttonText, setButtonText] = useState('Login');
   const [buttonClass, setButtonClass] = useState('');
 
@@ -21,19 +21,19 @@ function UserCard({ userData }) {
   const handleUserLogin = (e, user) => {
 
     if (!isLogged) {
-      setErrMsg(false);
+      setErrMsg('');
       setIsLogged(true);
       setLoggedUser(user);
       setButtonClass('success');
       setButtonText('User Logged In / Log Out');
     } else if (isLogged && user.username === loggedUser.username) {
-      setErrMsg(false);
+      setErrMsg('');
       setIsLogged(false);
       setLoggedUser(null);
       setButtonClass('');
       setButtonText('Login');
     } else if (isLogged && user.username !== loggedUser.username) {
-      return setErrMsg(true);
+      return setErrMsg('Another User already logged in!!');
     }
   };
 
@@ -44,7 +44,7 @@ function UserCard({ userData }) {
       </div>
       <h2>{userData.username}</h2>
       <button className={buttonClass} onClick={(e) => { handleUserLogin(e, userData); }}>{buttonText}</button>
-      {errMsg && <p className="error">Another User already logged in!!</p>}
+      {errMsg && <p className="error">{errMsg}</p>}
     </li>
   );
 }

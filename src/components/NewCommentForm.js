@@ -2,14 +2,14 @@ import { useState, useContext } from 'react';
 import { UserContext } from "../context/Users";
 
 import '../styles/NewCommentForm.scss';
+import { postNewComment } from '../utils/api';
 
-function NewCommentForm({ setCommentText }) {
+function NewCommentForm({ article_id, setCommentsList }) {
 
   const [newComment, setNewComment] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
-
-  const { isLogged } = useContext(UserContext);
+  const { loggedUser, isLogged } = useContext(UserContext);
 
   const handleTextChange = (e) => {
     setErrMsg('');
@@ -20,13 +20,23 @@ function NewCommentForm({ setCommentText }) {
     e.preventDefault();
 
     if (!isLogged) {
-      return setErrMsg('Only logged in users can add comments');
+      return setErrMsg('Only logged users can add comments');
     }
     if (newComment === '') {
       return setErrMsg('Comment field cannot be empty');
     }
 
-    setCommentText(newComment);
+    postNewComment(article_id, loggedUser.username, newComment)
+      .then(commentFromApi => {
+
+        setCommentsList(currentList => {
+          return [commentFromApi, ...currentList];
+        });
+      }).catch((err) => {
+        return setErrMsg('Something went wrong. Please try again');
+      });
+
+
     setNewComment('');
     setErrMsg('');
   };

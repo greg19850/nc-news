@@ -9,5 +9,7 @@ export const UserProvider = (props) => {
 
   const [isLogged, setIsLogged] = useState(false);
 
-  return <UserContext.Provider value={{ loggedUser, setLoggedUser, isLogged, setIsLogged }}>{props.children}</UserContext.Provider>;
+  const [alreadyVoted, setAlreadyVoted] = useState([]);
+
+  return <UserContext.Provider value={{ alreadyVoted, setAlreadyVoted, loggedUser, setLoggedUser, isLogged, setIsLogged }}>{props.children}</UserContext.Provider>;
 };

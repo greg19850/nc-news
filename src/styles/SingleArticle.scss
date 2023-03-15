@@ -23,7 +23,7 @@
 
 		.img-container {
 			width: 100%;
-			height: 500px;
+			height: 600px;
 
 			img {
 				width: 100%;
@@ -72,20 +72,24 @@
 }
 
 @media screen and (max-width: 980px) {
-	.single-article {
-		width: 90%;
-		margin: 0 auto;
+	.single-article-container {
+		.single-article {
+			width: 90%;
+			margin: 0 auto;
+		}
 	}
 }
 @media screen and (max-width: 780px) {
-	.single-article {
-		.img-container {
-			height: 300px;
+	.single-article-container {
+		.single-article {
+			.img-container {
+				height: 400px;
+			}
 		}
 	}
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 560px) {
 	.single-article-container {
 		padding: 10px 0;
 

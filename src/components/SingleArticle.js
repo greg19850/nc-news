@@ -21,12 +21,12 @@ function SingleArticle() {
   const [singleArticle, setSingleArticle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [commentsList, setCommentsList] = useState([]);
-  const [commentText, setCommentText] = useState('');
+  ;
   const [errMsg, setErrMsg] = useState('');
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
 
-  const { isLogged, userVoted, setUserVoted } = useContext(UserContext);
+  const { alreadyVoted, setAlreadyVoted, loggedUser, isLogged } = useContext(UserContext);
 
   let { article_id } = useParams();
 
@@ -39,6 +39,9 @@ function SingleArticle() {
       });
   }, [article_id]);
 
+  useEffect(() => {
+    window.localStorage.setItem('alreadyVoted', JSON.stringify(alreadyVoted));
+  }, [alreadyVoted]);
 
   let date = '';
   let time = '';
@@ -53,22 +56,29 @@ function SingleArticle() {
       return setErrMsg('Please log in. Voting available only for logged users');
     }
 
-    if (isLogged && userVoted) {
+    if (alreadyVoted.some(user => {
+      return user.username === loggedUser.username && user.article === article_id;
+    })) {
       return setErrMsg('This user already voted!');
-    }
-
-    updateArticleVotes(article_id, newVote).then((updatedArticle) => {
-      setErrMsg('');
-      setUserVoted(true);
-      setSingleArticle((currentArticle) => {
-        return { ...currentArticle, votes: currentArticle.votes + newVote };
+    } else {
+      setAlreadyVoted((currentState) => {
+        const userInfo = {
+          username: loggedUser.username,
+          article: article_id
+        };
+        return [...currentState, userInfo];
       });
-    }).catch((err) => {
-      setErrMsg('Something went wrong, please try again.');
-      // setSingleArticle((currentArticle) => {
-      //   return { ...currentArticle, votes: currentArticle.votes - newVote};
-      // });
+    };
 
+    setSingleArticle((currentArticle) => {
+      return { ...currentArticle, votes: currentArticle.votes + newVote };
+    });
+
+    updateArticleVotes(article_id, newVote).catch((err) => {
+      setErrMsg('Something went wrong, please try again.');
+      setSingleArticle((currentArticle) => {
+        return { ...currentArticle, votes: currentArticle.votes - newVote };
+      });
     });
   };
 
@@ -89,12 +99,11 @@ function SingleArticle() {
             <p>Votes: {votes}</p>
             <button className="vote-up" onClick={() => updateVote(1)}>{thumbUpIcon}</button>
             <button className="vote-down" onClick={() => updateVote(-1)}>{thumbDownIcon}</button>
-            { }
             {errMsg && <p className="error">{errMsg}</p>}
           </div>
           <div className="comments-container">
             <p><span>{commentIcon}</span>{comment_count} comments</p>
-            <NewCommentForm setCommentText={setCommentText} />
+            <NewCommentForm article_id={article_id} setCommentsList={setCommentsList} />
             <CommentsList commentsList={commentsList} setCommentsList={setCommentsList} article_id={article_id} />
           </div>
         </div>

@@ -7,11 +7,8 @@ import SingleArticle from './components/SingleArticle';
 
 import './styles/App.scss';
 import UserLogin from './components/UserLogin';
-import { useContext } from 'react';
-import { UserContext } from './context/Users';
 
 function App() {
-  const { loggedUser } = useContext(UserContext);
 
   return (
     <div className="app">

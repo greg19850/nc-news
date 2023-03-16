@@ -21,6 +21,14 @@
 			text-transform: uppercase;
 			font-size: 0.8rem;
 		}
+		p.author {
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		p.time-created {
+			margin: 0;
+			font-size: 0.9rem;
+		}
 
 		a {
 			text-decoration: none;
@@ -41,9 +49,14 @@
 				-webkit-box-orient: vertical;
 			}
 		}
-
-		p.comments {
+		.comments-and-votes {
+			width: 100%;
 			margin-top: auto;
+			display: flex;
+
+			p.votes {
+				margin-left: auto;
+			}
 		}
 	}
 

@@ -8,6 +8,7 @@ function NewCommentForm({ article_id, setCommentsList }) {
 
   const [newComment, setNewComment] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   const { loggedUser, isLogged } = useContext(UserContext);
 
@@ -28,6 +29,10 @@ function NewCommentForm({ article_id, setCommentsList }) {
 
     postNewComment(article_id, loggedUser.username, newComment)
       .then(commentFromApi => {
+        setSuccessMsg('Comment successfully posted!');
+        setTimeout(() => {
+          setSuccessMsg('');
+        }, 3000);
 
         setCommentsList(currentList => {
           return [commentFromApi, ...currentList];
@@ -53,7 +58,8 @@ function NewCommentForm({ article_id, setCommentsList }) {
       ></textarea>
       <div className="submit-container">
         <button type="submit">Add Comment</button>
-        {errMsg && <p className='error'>{errMsg}</p>}
+        {(errMsg && <p className='error'>{errMsg}</p>) ||
+          (successMsg && <p className='success'>{successMsg}</p>)}
       </div>
     </form>
   );

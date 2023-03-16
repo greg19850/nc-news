@@ -4,8 +4,12 @@ const articlesApi = axios.create({
   baseURL: 'https://nc-backend-project-nc-news.onrender.com/api'
 });
 
-export const getArticles = () => {
-  return articlesApi.get('/articles').then(({ data }) => {
+export const getArticles = (selectedCategory) => {
+  return articlesApi.get('/articles', {
+    params: {
+      topic: selectedCategory
+    }
+  }).then(({ data }) => {
     return data.articles;
   });
 };
@@ -45,4 +49,11 @@ export const postNewComment = (article_id, username, comment_text) => {
   }).then(({ data }) => {
     return data.comment;
   });
+};
+
+export const getCategories = () => {
+  return articlesApi.get('/topics')
+    .then(({ data }) => {
+      return data.topics;
+    });
 };

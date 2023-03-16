@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getArticles } from '../utils/api';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getArticles } from "../utils/api";
 
 import ArticleCard from './ArticleCard';
 
-import '../styles/Articles.scss';
-
-function Articles() {
+function SortedArticles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { topic } = useParams();
+  let { topic } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,12 +23,11 @@ function Articles() {
   });
 
   const loadingMsg = <p className='loading'>Loading Articles...</p>;
-
   return (
-    <div className="articles">
+    <div className="sorted-articles">
       {isLoading ? loadingMsg : displayArticleCards}
     </div>
   );
 }
 
-export default Articles;
+export default SortedArticles;

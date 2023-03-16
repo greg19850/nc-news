@@ -11,14 +11,27 @@
 		padding: 15px 0;
 		border-bottom: 1px solid #000;
 
+		div.comment-info {
+			display: flex;
+			margin-bottom: 10px;
+
+			p.comment-author {
+				font-weight: bold;
+				margin-right: 20px;
+			}
+
+			p.comment-date {
+			}
+
+			@media screen and (max-width: 460px) {
+				flex-direction: column;
+			}
+		}
 		p.comment-body {
 			font-weight: normal;
 			margin-bottom: 10px;
 		}
 
-		p.comment-author {
-			font-weight: bold;
-		}
 		p.votes {
 			margin-top: 40px;
 		}

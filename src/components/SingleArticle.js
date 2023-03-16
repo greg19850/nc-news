@@ -39,10 +39,6 @@ function SingleArticle() {
       });
   }, [article_id]);
 
-  useEffect(() => {
-    window.localStorage.setItem('alreadyVoted', JSON.stringify(alreadyVoted));
-  }, [alreadyVoted]);
-
   let date = '';
   let time = '';
   if (typeof created_at === 'string') {

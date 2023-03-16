@@ -5,6 +5,8 @@ import '../styles/CommentsList.scss';
 
 function CommentsList({ commentsList, setCommentsList, article_id }) {
   useEffect(() => {
+
+
     getAllComments(article_id)
       .then(uploadedComments => {
         setCommentsList(uploadedComments);
@@ -15,8 +17,8 @@ function CommentsList({ commentsList, setCommentsList, article_id }) {
     return (
       <li key={comment.comment_id}>
         <p className="comment-body">{comment.body}</p>
-        <p>{comment.author}</p>
-        <p>votes: {comment.votes}</p>
+        <p className="comment-author">{comment.author}</p>
+        <p className="votes">votes: {comment.votes}</p>
       </li>);
   });
   return (

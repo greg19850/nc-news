@@ -30,3 +30,19 @@ export const updateArticleVotes = (article_id, newVote) => {
     return data.article;
   });
 };
+
+export const getUsers = () => {
+  return articlesApi.get('/users')
+    .then(({ data }) => {
+      return data.users;
+    });
+};
+
+export const postNewComment = (article_id, username, comment_text) => {
+
+  return articlesApi.post(`/articles/${article_id}/comments`, {
+    author: username, body: comment_text
+  }).then(({ data }) => {
+    return data.comment;
+  });
+};

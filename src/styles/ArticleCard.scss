@@ -1,9 +1,10 @@
 .article-card {
 	display: flex;
 	justify-content: space-between;
+	background-color: #fff;
 	padding: 40px;
 	margin: 20px;
-	border-bottom: 2px solid black;
+	border-radius: 15px;
 
 	.article-info {
 		display: flex;
@@ -76,6 +77,16 @@
 
 		.img-container {
 			width: 80%;
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.article-card {
+		margin: 10px 0;
+
+		.img-container {
+			width: 90%;
 		}
 	}
 }

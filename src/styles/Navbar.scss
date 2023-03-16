@@ -1,15 +1,36 @@
-.nav {
-	list-style: none;
+.navbar {
 	display: flex;
-	background-color: #000;
-	color: #fff;
-	padding: 10px;
+	justify-content: space-between;
+	padding: 20px;
+	margin: 0 20px;
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	border-radius: 0 0 15px 15px;
 
-	li {
-		margin-right: 20px;
+	.categories {
+		list-style: none;
+		display: flex;
+
+		li {
+			margin-right: 20px;
+		}
 	}
 
-	@media screen and (max-width: 480px) {
-		justify-content: center;
+	p.user-info {
+		span {
+			font-weight: bold;
+		}
+
+		@media screen and (max-width: 500px) {
+			margin-top: 5px;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 0.8rem;
+		flex-direction: column;
+		align-items: center;
+		margin: 0;
+		border-radius: 0;
 	}
 }

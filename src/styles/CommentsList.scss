@@ -6,12 +6,21 @@
 
 	li {
 		list-style: none;
-		margin: 15px 0;
-		padding: 15px;
+		width: 100%;
+		margin: 20px 0;
+		padding: 15px 0;
 		border-bottom: 1px solid #000;
 
 		p.comment-body {
 			font-weight: normal;
+			margin-bottom: 10px;
+		}
+
+		p.comment-author {
+			font-weight: bold;
+		}
+		p.votes {
+			margin-top: 40px;
 		}
 	}
 }

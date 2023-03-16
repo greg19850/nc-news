@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
+import CommentsList from "./CommentsList";
+import NewCommentForm from "./NewCommentForm";
+import { getSingleArticle, updateArticleVotes } from "../utils/api";
+import { UserContext } from "../context/Users";
+
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
-import CommentsList from "./CommentsList";
-import { getSingleArticle, updateArticleVotes } from "../utils/api";
+
 
 import '../styles/SingleArticle.scss';
 
@@ -17,9 +21,12 @@ function SingleArticle() {
   const [singleArticle, setSingleArticle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [commentsList, setCommentsList] = useState([]);
-  const [errMsg, setErrMsg] = useState(false);
+  ;
+  const [errMsg, setErrMsg] = useState('');
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
+
+  const { alreadyVoted, setAlreadyVoted, loggedUser, isLogged } = useContext(UserContext);
 
   let { article_id } = useParams();
 
@@ -32,6 +39,9 @@ function SingleArticle() {
       });
   }, [article_id]);
 
+  useEffect(() => {
+    window.localStorage.setItem('alreadyVoted', JSON.stringify(alreadyVoted));
+  }, [alreadyVoted]);
 
   let date = '';
   let time = '';
@@ -42,17 +52,33 @@ function SingleArticle() {
   const loadingMsg = <p className='loading'>Loading Article...</p>;
 
   const updateVote = (newVote) => {
-    updateArticleVotes(article_id, newVote).then((updatedArticle) => {
-      setErrMsg(false);
-      setSingleArticle((currentArticle) => {
-        return { ...currentArticle, votes: currentArticle.votes + newVote };
-      });
-    }).catch((err) => {
-      setErrMsg(true);
-      // setSingleArticle((currentArticle) => {
-      //   return { ...currentArticle, votes: currentArticle.votes - newVote};
-      // });
+    if (!isLogged) {
+      return setErrMsg('Please log in. Voting available only for logged users');
+    }
 
+    if (alreadyVoted.some(user => {
+      return user.username === loggedUser.username && user.article === article_id;
+    })) {
+      return setErrMsg('This user already voted!');
+    } else {
+      setAlreadyVoted((currentState) => {
+        const userInfo = {
+          username: loggedUser.username,
+          article: article_id
+        };
+        return [...currentState, userInfo];
+      });
+    };
+
+    setSingleArticle((currentArticle) => {
+      return { ...currentArticle, votes: currentArticle.votes + newVote };
+    });
+
+    updateArticleVotes(article_id, newVote).catch((err) => {
+      setErrMsg('Something went wrong, please try again.');
+      setSingleArticle((currentArticle) => {
+        return { ...currentArticle, votes: currentArticle.votes - newVote };
+      });
     });
   };
 
@@ -73,11 +99,11 @@ function SingleArticle() {
             <p>Votes: {votes}</p>
             <button className="vote-up" onClick={() => updateVote(1)}>{thumbUpIcon}</button>
             <button className="vote-down" onClick={() => updateVote(-1)}>{thumbDownIcon}</button>
-            {errMsg && <p className="error">"Something went wrong, please try again."</p>}
+            {errMsg && <p className="error">{errMsg}</p>}
           </div>
           <div className="comments-container">
             <p><span>{commentIcon}</span>{comment_count} comments</p>
-            <div>Comment Form Component</div>
+            <NewCommentForm article_id={article_id} setCommentsList={setCommentsList} />
             <CommentsList commentsList={commentsList} setCommentsList={setCommentsList} article_id={article_id} />
           </div>
         </div>

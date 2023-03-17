@@ -31,9 +31,17 @@
 			font-weight: normal;
 			margin-bottom: 10px;
 		}
-
-		p.votes {
+		div.comment-bottom-row {
 			margin-top: 40px;
+			display: flex;
+			justify-content: space-between;
+
+			button {
+				cursor: pointer;
+				font-size: 1.4rem;
+				background-color: #fff;
+				border: none;
+			}
 		}
 	}
 }

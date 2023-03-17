@@ -57,3 +57,10 @@ export const getCategories = () => {
       return data.topics;
     });
 };
+
+export const deleteComment = (comment_id) => {
+  return articlesApi.delete(`/comments/${comment_id}`)
+    .then((response) => {
+      return response.status;
+    });
+};

@@ -1,6 +1,6 @@
 import '../styles/Modal.scss';
 
-function Modal({ ModalIsActive, setModalIsActive, setConfirmCommentDelete, deleteMsg, }) {
+function Modal({ ModalIsActive, setModalIsActive, setConfirmCommentDelete, deleteMsg, msgClass }) {
 
   const handleCommentDeleteConfirm = () => {
     setConfirmCommentDelete(true);
@@ -15,7 +15,7 @@ function Modal({ ModalIsActive, setModalIsActive, setConfirmCommentDelete, delet
   return (
     <div className="modal">
       {deleteMsg ?
-        <div className="modal-content"><h3 className='success'>{deleteMsg}</h3></div>
+        <div className="modal-content"><h3 className={msgClass}>{deleteMsg}</h3></div>
         : <div className="modal-content">
           <h3>Are you sure you want to delete your comment?</h3>
           <div className="buttons-container">

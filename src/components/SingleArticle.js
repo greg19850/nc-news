@@ -26,6 +26,7 @@ function SingleArticle() {
   const [modalIsActive, setModalIsActive] = useState(false);
   const [confirmCommentDelete, setConfirmCommentDelete] = useState(false);
   const [deleteMsg, setDeleteMsg] = useState('');
+  const [msgClass, setMsgClass] = useState('');
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
 
@@ -111,10 +112,18 @@ function SingleArticle() {
               confirmCommentDelete={confirmCommentDelete}
               setConfirmCommentDelete={setConfirmCommentDelete}
               setDeleteMsg={setDeleteMsg}
+              setMsgClass={setMsgClass}
             />
           </div>
         </div>
-        {modalIsActive && <Modal setConfirmCommentDelete={setConfirmCommentDelete} modalIsActive={modalIsActive} setModalIsActive={setModalIsActive} deleteMsg={deleteMsg} setDeleteMsg={setDeleteMsg} />}
+        {modalIsActive &&
+          <Modal
+            setConfirmCommentDelete={setConfirmCommentDelete}
+            modalIsActive={modalIsActive}
+            setModalIsActive={setModalIsActive}
+            deleteMsg={deleteMsg} s
+            etDeleteMsg={setDeleteMsg}
+            msgClass={msgClass} />}
       </div>
   );
 };

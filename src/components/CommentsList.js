@@ -8,7 +8,7 @@ import '../styles/CommentsList.scss';
 
 const binIcon = <BsTrash3 className="bin-icon" />;
 
-function CommentsList({ commentsList, setCommentsList, article_id, setModalIsActive, confirmCommentDelete, setConfirmCommentDelete, setDeleteMsg }) {
+function CommentsList({ commentsList, setCommentsList, article_id, setModalIsActive, confirmCommentDelete, setConfirmCommentDelete, setDeleteMsg, setMsgClass }) {
 
   const [deleteCommentId, setDeleteCommentId] = useState(null);
   const [deleteBtnDisabled, setDeleteBtnDisabled] = useState(false);
@@ -18,7 +18,7 @@ function CommentsList({ commentsList, setCommentsList, article_id, setModalIsAct
 
   useEffect(() => {
     setConfirmCommentDelete(false);
-    getAllComments(article_id)
+    getAllComments(article_id, 'created_at')
       .then(uploadedComments => {
         setCommentsList(uploadedComments);
       });
@@ -30,11 +30,12 @@ function CommentsList({ commentsList, setCommentsList, article_id, setModalIsAct
       deleteComment(deleteCommentId)
         .then((resStatus) => {
           if (resStatus === 204) {
-            getAllComments(article_id)
+            getAllComments(article_id, 'created_at')
               .then(uploadedComments => {
                 setCommentsList(uploadedComments);
                 setConfirmCommentDelete(false);
                 setDeleteMsg('Comment Deleted');
+                setMsgClass('success');
                 setDeleteBtnDisabled(false);
                 setModalIsActive(true);
                 setTimeout(() => {
@@ -43,6 +44,16 @@ function CommentsList({ commentsList, setCommentsList, article_id, setModalIsAct
                 }, 1000);
               });
           }
+        }).catch((err) => {
+          setMsgClass('error');
+          setDeleteMsg('Error, unable to delete comment. Please Try again');
+          setDeleteBtnDisabled(false);
+          setModalIsActive(true);
+          setTimeout(() => {
+            setConfirmCommentDelete(false);
+            setModalIsActive(false);
+            setDeleteMsg('');
+          }, 1000);
         });
     }
   }, [confirmCommentDelete, deleteCommentId]);

@@ -1,0 +1,64 @@
+.modal {
+	display: block;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
+
+	.modal-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: #fefefe;
+		margin: 15% auto;
+		padding: 20px;
+		border: 1px solid #888;
+		border-radius: 10px;
+		width: 50%;
+		height: 30%;
+
+		h3 {
+			text-align: center;
+			font-size: 1.8rem;
+			margin-bottom: 15px;
+
+			@media screen and (max-width: 780px) {
+				font-size: 1.5rem;
+			}
+		}
+
+		div.buttons-container {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+
+			button {
+				cursor: pointer;
+				font-size: 1.2rem;
+				margin: 10px;
+				padding: 5px;
+				width: 30%;
+
+				&.confirm {
+					background-color: #aacb73;
+				}
+				&.cancel {
+					background-color: #ff6464;
+				}
+
+				@media screen and (max-width: 780px) {
+					font-size: 0.8rem;
+				}
+				@media screen and (max-width: 500px) {
+					font-size: 0.5rem;
+				}
+			}
+		}
+	}
+}

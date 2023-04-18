@@ -3,9 +3,9 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Articles from './components/Articles';
 import SingleArticle from './components/SingleArticle';
+import UserLogin from './components/UserLogin';
 
 import './styles/App.scss';
-import UserLogin from './components/UserLogin';
 
 function App() {
 

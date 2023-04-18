@@ -1,17 +1,67 @@
-import { useEffect } from "react";
-import { getAllComments } from "../utils/api";
+import { useEffect, useContext, useState } from "react";
+import { deleteComment, getAllComments } from "../utils/api";
+import { UserContext } from "../context/Users";
+
+import { BsTrash3 } from 'react-icons/bs';
 
 import '../styles/CommentsList.scss';
 
-function CommentsList({ commentsList, setCommentsList, article_id }) {
+const binIcon = <BsTrash3 className="bin-icon" />;
+
+function CommentsList({ commentsList, setCommentsList, article_id, setModalIsActive, confirmCommentDelete, setConfirmCommentDelete, setDeleteMsg, setMsgClass }) {
+
+  const [deleteCommentId, setDeleteCommentId] = useState(null);
+  const [deleteBtnDisabled, setDeleteBtnDisabled] = useState(false);
+
+  const { loggedUser } = useContext(UserContext);
+
+
   useEffect(() => {
-
-
-    getAllComments(article_id)
+    setConfirmCommentDelete(false);
+    getAllComments(article_id, 'created_at')
       .then(uploadedComments => {
         setCommentsList(uploadedComments);
       });
   }, [article_id]);
+
+  useEffect(() => {
+    if (confirmCommentDelete) {
+      setDeleteBtnDisabled(true);
+      deleteComment(deleteCommentId)
+        .then((resStatus) => {
+          if (resStatus === 204) {
+            getAllComments(article_id, 'created_at')
+              .then(uploadedComments => {
+                setCommentsList(uploadedComments);
+                setConfirmCommentDelete(false);
+                setDeleteMsg('Comment Deleted');
+                setMsgClass('success');
+                setDeleteBtnDisabled(false);
+                setModalIsActive(true);
+                setTimeout(() => {
+                  setModalIsActive(false);
+                  setDeleteMsg('');
+                }, 1000);
+              });
+          }
+        }).catch((err) => {
+          setMsgClass('error');
+          setDeleteMsg('Error, unable to delete comment. Please Try again');
+          setDeleteBtnDisabled(false);
+          setModalIsActive(true);
+          setTimeout(() => {
+            setConfirmCommentDelete(false);
+            setModalIsActive(false);
+            setDeleteMsg('');
+          }, 1000);
+        });
+    }
+  }, [confirmCommentDelete, deleteCommentId]);
+
+  const handleCommentDelete = (comment_id) => {
+    setModalIsActive(true);
+    setDeleteCommentId(comment_id);
+  };
 
   const allCommentsList = commentsList.map(comment => {
     let date = '';
@@ -29,7 +79,11 @@ function CommentsList({ commentsList, setCommentsList, article_id }) {
           <p className="comment-date">posted: {date} at {time}</p>
         </div>
         <p className="comment-body">{comment.body}</p>
-        <p className="votes">votes: {comment.votes}</p>
+        <div className="comment-bottom-row">
+          <p className="votes">votes: {comment.votes}</p>
+          {loggedUser && comment.author === loggedUser.username ?
+            <button disabled={deleteBtnDisabled} onClick={() => handleCommentDelete(comment.comment_id)}>{binIcon}</button> : null}
+        </div>
       </li>);
   });
 

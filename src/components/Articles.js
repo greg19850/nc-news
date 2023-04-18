@@ -19,7 +19,6 @@ function Articles() {
   const [selectedOrder, setSelectedOrder] = useState('ASC');
 
   const { topic } = useParams();
-
   useEffect(() => {
     setIsLoading(true);
     getArticles(topic, selectedSortBy, selectedOrder).then(data => {
@@ -51,14 +50,12 @@ function Articles() {
   return (
     <div className="articles">
       <div className="sort-field">
-        {/* <label htmlFor="sort">Sort Articles:</label> */}
         <select name="sort" id="sort" value={selectedSortBy} onChange={handleSelectChange}>
           <option disabled value="">Sort Articles by...</option>
           <option value="created_at">Date Created</option>
           <option value="title">Title</option>
           <option value="topic">Topic</option>
           <option value="author">Author</option>
-          <option value="body">Article Text</option>
           <option value="votes">Votes</option>
         </select>
         <button onClick={handleOrder}>{arrowIcon}</button>

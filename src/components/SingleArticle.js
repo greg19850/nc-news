@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
+import { UserContext } from "../context/Users";
+import { getSingleArticle, updateArticleVotes } from "../utils/api";
 import CommentsList from "./CommentsList";
 import NewCommentForm from "./NewCommentForm";
-import { getSingleArticle, updateArticleVotes } from "../utils/api";
-import { UserContext } from "../context/Users";
+import Modal from "./Modal";
 
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
@@ -21,8 +22,11 @@ function SingleArticle() {
   const [singleArticle, setSingleArticle] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [commentsList, setCommentsList] = useState([]);
-  ;
   const [errMsg, setErrMsg] = useState('');
+  const [modalIsActive, setModalIsActive] = useState(false);
+  const [confirmCommentDelete, setConfirmCommentDelete] = useState(false);
+  const [deleteMsg, setDeleteMsg] = useState('');
+  const [msgClass, setMsgClass] = useState('');
 
   const { title, topic, author, body, created_at, votes, article_img_url, comment_count } = singleArticle;
 
@@ -100,9 +104,26 @@ function SingleArticle() {
           <div className="comments-container">
             <p><span>{commentIcon}</span>{comment_count} comments</p>
             <NewCommentForm article_id={article_id} setCommentsList={setCommentsList} />
-            <CommentsList commentsList={commentsList} setCommentsList={setCommentsList} article_id={article_id} />
+            <CommentsList
+              commentsList={commentsList}
+              setCommentsList={setCommentsList}
+              article_id={article_id}
+              setModalIsActive={setModalIsActive}
+              confirmCommentDelete={confirmCommentDelete}
+              setConfirmCommentDelete={setConfirmCommentDelete}
+              setDeleteMsg={setDeleteMsg}
+              setMsgClass={setMsgClass}
+            />
           </div>
         </div>
+        {modalIsActive &&
+          <Modal
+            setConfirmCommentDelete={setConfirmCommentDelete}
+            modalIsActive={modalIsActive}
+            setModalIsActive={setModalIsActive}
+            deleteMsg={deleteMsg} s
+            etDeleteMsg={setDeleteMsg}
+            msgClass={msgClass} />}
       </div>
   );
 };

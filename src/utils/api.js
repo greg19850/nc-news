@@ -22,8 +22,12 @@ export const getSingleArticle = (article_id) => {
   });
 };
 
-export const getAllComments = (article_id) => {
-  return articlesApi.get(`/articles/${article_id}/comments`)
+export const getAllComments = (article_id, sort_by) => {
+  return articlesApi.get(`/articles/${article_id}/comments`, {
+    params: {
+      sort_by
+    }
+  })
     .then(({ data }) => {
       return data.comments;
     });
@@ -57,5 +61,12 @@ export const getCategories = () => {
   return articlesApi.get('/topics')
     .then(({ data }) => {
       return data.topics;
+    });
+};
+
+export const deleteComment = (comment_id) => {
+  return articlesApi.delete(`/comments/${comment_id}`)
+    .then((response) => {
+      return response.status;
     });
 };
